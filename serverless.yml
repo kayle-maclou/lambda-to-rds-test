@@ -1,0 +1,48 @@
+service: lambda-to-rds-test
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  vpc:
+    securityGroupIds:
+      - sg-090bbb76fdc4e6444
+    subnetIds:
+      - subnet-030b2758e831e6121
+      - subnet-05d738b5b1533da89
+      - subnet-0981688f5e48eafe8
+      - subnet-0358e725de6692a03
+      - subnet-0e9d5659ddbc63472
+      - subnet-088d40862cf6689f8
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - rds:*
+          Resource:
+            - arn:aws:rds:*:*:*
+
+functions:
+  hello:
+    handler: handler.hello
+    memorySize: 2048
+    timeout: 120
+resources:
+  Resources:
+    AWSLambdaVPCAccessExecutionRole:
+      Type: AWS::IAM::ManagedPolicy
+      Properties:
+        Description: Creating policy for vpc connetion.
+        Roles:
+          - { "Ref": "IamRoleLambdaExecution" }
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - ec2:CreateNetworkInterface
+                - ec2:DescribeNetworkInterfaces
+                - ec2:DeleteNetworkInterface
+              Resource: "*"
