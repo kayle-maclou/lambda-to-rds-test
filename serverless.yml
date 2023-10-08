@@ -28,7 +28,7 @@ functions:
   hello:
     handler: handler.hello
     memorySize: 2048
-    timeout: 120
+    timeout: 60
 resources:
   Resources:
     AWSLambdaVPCAccessExecutionRole:
