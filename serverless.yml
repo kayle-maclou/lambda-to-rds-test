@@ -1,4 +1,4 @@
-service: lambda-to-rds-test
+service: test-api-to-lambda-to-rds
 
 frameworkVersion: "3"
 
@@ -25,10 +25,13 @@ provider:
             - arn:aws:rds:*:*:*
 
 functions:
-  hello:
-    handler: handler.hello
+  api:
+    handler: handler.handler
     memorySize: 2048
-    timeout: 60
+    timeout: 30
+    events:
+      - httpApi: "*"
+
 resources:
   Resources:
     AWSLambdaVPCAccessExecutionRole:

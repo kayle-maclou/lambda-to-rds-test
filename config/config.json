@@ -6,7 +6,7 @@
     "host": "xml-document-database.csjjqz7txezn.us-east-1.rds.amazonaws.com",
     "dialect": "mysql",
     "dialectOptions": {
-      "connectTimeout": 60000
+      "connectTimeout": 30000
     }
   },
   "test": {
